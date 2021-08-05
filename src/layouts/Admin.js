@@ -69,6 +69,7 @@ function Dashboard(props) {
         <DemoNavbar {...props} />
         <Switch>
           {routes.map((prop, key) => {
+            // if(! window.location.pathname.includes("blog"))
             return (
               <Route
                 path={prop.layout + prop.path}
@@ -76,6 +77,12 @@ function Dashboard(props) {
                 key={key}
               />
             );
+            // else
+            // return (
+            
+            //   <Route  path={prop.path} component={prop.component} />
+           
+            // );
           })}
         </Switch>
         <Footer fluid />

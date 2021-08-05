@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { REQUEST, SUCCESS, FAILURE } from '../action-type.util';
 import { IBlog } from './blog.model';
+import pick from 'lodash/pick';
 
 export const ACTION_TYPES = {
   SEARCH_BLOGS: 'blog/SEARCH_BLOGS',
@@ -8,6 +9,7 @@ export const ACTION_TYPES = {
   FETCH_BLOG: 'blog/FETCH_BLOG',
   FETCH_BLOG_LISTSEARCH: 'blog/FETCH_BLOG_LISTSEARCH',
   RESET: 'blog/RESET',
+  CREATE_BLOG: 'blog/CREATE_BLOG'
 };
 
 const initialState = {
@@ -31,6 +33,7 @@ export default (state: BlogState = initialState, action: { type: any; payload: {
     case REQUEST(ACTION_TYPES.FETCH_BLOG_LIST):
     case REQUEST(ACTION_TYPES.FETCH_BLOG):
     case REQUEST(ACTION_TYPES.FETCH_BLOG_LISTSEARCH):
+    case REQUEST(ACTION_TYPES.CREATE_BLOG):
       return {
         ...state,
         errorMessage: null,
@@ -42,6 +45,8 @@ export default (state: BlogState = initialState, action: { type: any; payload: {
     case FAILURE(ACTION_TYPES.FETCH_BLOG_LIST):
     case FAILURE(ACTION_TYPES.FETCH_BLOG):
     case FAILURE(ACTION_TYPES.FETCH_BLOG_LISTSEARCH):
+    case FAILURE(ACTION_TYPES.CREATE_BLOG):
+
       return {
         ...state,
         loading: false,
@@ -70,6 +75,13 @@ export default (state: BlogState = initialState, action: { type: any; payload: {
         loading: false,
         entity: action.payload.data.content,
       };
+      case SUCCESS(ACTION_TYPES.CREATE_BLOG):      
+          return {
+            ...state,
+            updating: false,
+            updateSuccess: true,
+            entity: action.payload.data
+          };
     case ACTION_TYPES.RESET:
       return {
         ...initialState,
@@ -92,6 +104,14 @@ export const getAllBlogs = () => {
     payload: axios.get<IBlog>(`${requestUrl}`)
   };
 };
+export const createEntity = (entity: any) => {
+  const result = ({
+    type: ACTION_TYPES.CREATE_BLOG,
+    payload: axios.post(apiUrl, cleanEntity(entity))
+  });
+  return result;
+};
+
 export const getEntity = (id:any) => {
   const requestUrl = `api/blog_/${id}`;
   return {
@@ -103,3 +123,9 @@ export const getEntity = (id:any) => {
 export const reset = () => ({
   type: ACTION_TYPES.RESET,
 });
+
+export const cleanEntity = (entity:any) => {
+  const keysToKeep = Object.keys(entity).filter(k => !(entity[k] instanceof Object) || (entity[k]['id'] !== '' && entity[k]['id'] !== -1));
+
+  return pick(entity, keysToKeep);
+};

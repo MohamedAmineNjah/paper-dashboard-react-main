@@ -98,7 +98,11 @@ const deletecat = (id : any) =>{
                                     <td>{blog.name}</td>
                                     <td>{blog.handle}</td>
 
-                                    <td>{blog.user}</td>
+                                    <td>
+                                    {blog.user ? 
+                                        blog.user.login
+                                        : 'null'}
+                                        </td>
                                    
 
                                     <td className="text-right">

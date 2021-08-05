@@ -19,6 +19,7 @@
 import Dashboard from "views/Dashboard.js";
 import Notifications from "views/Notifications.js";
 import Home from "blog/home";
+import blogupdate from "blog/blog-update";
 import Typography from "views/Typography.js";
 import TableList from "views/Tables.js";
 import Maps from "views/Map.js";
@@ -37,6 +38,13 @@ var routes = [
     name: "blog",
     icon: "nc-icon nc-diamond",
     component: Home,
+    layout: "/admin",
+  },
+  {
+    path: "/new",
+    name: "new",
+    icon: "nc-icon nc-diamond",
+    component: blogupdate,
     layout: "/admin",
   },
   {

@@ -9,6 +9,7 @@ import "assets/demo/demo.css";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 import AdminLayout from "layouts/Admin.js";
 import { Provider } from "react-redux";
+import Home from './blog/home';
 
 
 const store = initStore();
@@ -18,7 +19,7 @@ ReactDOM.render(
     <Provider store={store}>
     <Switch>
       <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-      <Redirect to="/admin/dashboard" />
+      {/* <Redirect to="/admin/dashboard" /> */}
     </Switch>
     </Provider>
   </BrowserRouter>,
