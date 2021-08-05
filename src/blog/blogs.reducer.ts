@@ -1,19 +1,19 @@
 import axios from 'axios';
 import { REQUEST, SUCCESS, FAILURE } from '../action-type.util';
-import { IBlog, defaultValue } from './blog.model';
+import { IBlog } from './blog.model';
 
 export const ACTION_TYPES = {
   SEARCH_BLOGS: 'blog/SEARCH_BLOGS',
   FETCH_BLOG_LIST: 'blog/FETCH_BLOG_LIST',
   FETCH_BLOG: 'blog/FETCH_BLOG',
   FETCH_BLOG_LISTSEARCH: 'blog/FETCH_BLOG_LISTSEARCH',
-  RESET: 'blogs/RESET',
+  RESET: 'blog/RESET',
 };
 
 const initialState = {
   loading: false,
   errorMessage: null,
-  entities: [] as ReadonlyArray<IBlog>,
+  entities: [] as any,
   entity: {} as any,
   updating: false,
   totalPages: 0,
@@ -54,21 +54,21 @@ export default (state: BlogState = initialState, action: { type: any; payload: {
       return {
         ...state,
         loading: false,
-        entities: action.payload.data.content,
-        totalPages: parseInt(action.payload.data.totalPages, 10),
+        entities: action.payload.data,
+       // totalPages: parseInt(action.payload.data.totalPages, 10),
       };
     case SUCCESS(ACTION_TYPES.FETCH_BLOG_LISTSEARCH):
       return {
         ...state,
         loading: false,
         entities: action.payload.data.content,
-        totalPages: parseInt(action.payload.data.totalPages, 10),
+       // totalPages: parseInt(action.payload.data.totalPages, 10),
       };
     case SUCCESS(ACTION_TYPES.FETCH_BLOG):
       return {
         ...state,
         loading: false,
-        entity: action.payload.data,
+        entity: action.payload.data.content,
       };
     case ACTION_TYPES.RESET:
       return {
@@ -79,7 +79,7 @@ export default (state: BlogState = initialState, action: { type: any; payload: {
   }
 };
 
-const apiUrl = 'http://localhost:8080/api/produits';
+const apiUrl = 'http://localhost:8080/api/blogs';
 
 // Actions
 
@@ -88,7 +88,7 @@ const apiUrl = 'http://localhost:8080/api/produits';
 export const getAllBlogs = () => {
   const requestUrl = `${apiUrl}`;
   return {
-    type: ACTION_TYPES.FETCH_BLOG,
+    type: ACTION_TYPES.FETCH_BLOG_LIST,
     payload: axios.get<IBlog>(`${requestUrl}`)
   };
 };

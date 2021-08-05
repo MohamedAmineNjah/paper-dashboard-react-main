@@ -7,5 +7,6 @@ export interface IBlog {
 }
 
 export const defaultValue: Readonly<IBlog> = {
- 
+  name: '',
+  handle: '',
 };
