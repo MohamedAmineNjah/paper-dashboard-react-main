@@ -5,6 +5,7 @@
   "homepage": "https://demos.creative-tim.com/paper-dashboard-react/#/dashboard",
   "dependencies": {
     "@babel/core": "7.14.2",
+    "axios": "^0.21.1",
     "bootstrap": "4.6.0",
     "chart.js": "3.2.1",
     "jquery": "3.6.0",
@@ -14,10 +15,16 @@
     "react-chartjs-2": "3.0.3",
     "react-dom": "17.0.2",
     "react-notification-alert": "0.0.13",
+    "react-redux": "^7.2.4",
+    "react-redux-loading-bar": "^5.0.2",
     "react-router": "5.2.0",
     "react-router-dom": "5.2.0",
     "react-scripts": "4.0.3",
-    "reactstrap": "8.9.0"
+    "reactstrap": "8.9.0",
+    "redux": "^4.1.1",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-promise-middleware": "^6.1.2",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",

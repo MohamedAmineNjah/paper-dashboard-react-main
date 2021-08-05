@@ -23,7 +23,6 @@ import Typography from "views/Typography.js";
 import TableList from "views/Tables.js";
 import Maps from "views/Map.js";
 import UserPage from "views/User.js";
-import UpgradeToPro from "views/Upgrade.js";
 
 var routes = [
   {
@@ -75,13 +74,6 @@ var routes = [
     component: Typography,
     layout: "/admin",
   },
-  {
-    pro: true,
-    path: "/upgrade",
-    name: "Upgrade to PRO",
-    icon: "nc-icon nc-spaceship",
-    component: UpgradeToPro,
-    layout: "/admin",
-  },
+
 ];
 export default routes;
