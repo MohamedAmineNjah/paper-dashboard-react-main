@@ -27,6 +27,8 @@ import Sidebar from "components/Sidebar/Sidebar.js";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";
+import BlogUpdate from '../blog/blog-update';
+import Home from '../blog/home'
 
 var ps;
 
@@ -67,24 +69,26 @@ function Dashboard(props) {
       />
       <div className="main-panel" ref={mainPanel}>
         <DemoNavbar {...props} />
-        <Switch>
-          {routes.map((prop, key) => {
-            // if(! window.location.pathname.includes("blog"))
-            return (
-              <Route
-                path={prop.layout + prop.path}
-                component={prop.component}
-                key={key}
-              />
-            );
-            // else
-            // return (
-            
-            //   <Route  path={prop.path} component={prop.component} />
-           
-            // );
-          })}
-        </Switch>
+        {!window.location.pathname.includes("edit") && !window.location.pathname.includes("new")?
+          <Switch>
+            {routes.map((prop, key) => {
+              return (
+                <Route
+                  path={prop.layout + prop.path}
+                  component={prop.component}
+                  key={key}
+                />
+              );
+
+
+            })}
+          </Switch> :
+          !window.location.pathname.includes("edit") ? 
+          <Route  path='/admin/new' component={BlogUpdate} />
+          :
+          <Route component={BlogUpdate} />
+          
+        }
         <Footer fluid />
       </div>
       <FixedPlugin

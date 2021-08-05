@@ -17,7 +17,7 @@ export const BlogUpdate = (props: IBlogUpdateProps) => {
   const { register, handleSubmit, control, reset } = useForm();
 
   const handleClose = () => {
-    props.history.push('/admin/blog' + props.location.search);
+    props.history.push('/admin/blog');
   };
 
 

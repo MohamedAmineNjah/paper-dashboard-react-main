@@ -40,13 +40,13 @@ var routes = [
     component: Home,
     layout: "/admin",
   },
-  {
-    path: "/new",
-    name: "new",
-    icon: "nc-icon nc-diamond",
-    component: blogupdate,
-    layout: "/admin",
-  },
+  // {
+  //   path: "/new",
+  //   name: "new",
+  //   icon: "nc-icon nc-diamond",
+  //   component: blogupdate,
+  //   layout: "/admin",
+  // },
   {
     path: "/maps",
     name: "Maps",

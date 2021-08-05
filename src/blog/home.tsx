@@ -20,19 +20,7 @@ const Home = (props: IHomeProp) => {
         console.log(props.bloglist)
     }, []);// une seule fois au moment de l'aff de page
     
-    useEffect(() => {
-       console.log(props.updateSuccess);
-        if(props.updateSuccess)
-        {
-            console.log(props.updateSuccess);
-            handleClose();
-           
-        }
-    }, [props.updateSuccess]);//1er fois + plusieur fois a chaque mofid de props.updateSuccess
-
-    const handleClose = () => {
-        props.history.push('/');
-    };
+    
 
 const deletecat = (id : any) =>{
    console.log(id);
