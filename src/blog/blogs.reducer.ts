@@ -73,7 +73,7 @@ export default (state: BlogState = initialState, action: { type: any; payload: {
       return {
         ...state,
         loading: false,
-        entity: action.payload.data.content,
+        entity: action.payload.data,
       };
       case SUCCESS(ACTION_TYPES.CREATE_BLOG):      
           return {
@@ -113,7 +113,7 @@ export const createEntity = (entity: any) => {
 };
 
 export const getEntity = (id:any) => {
-  const requestUrl = `api/blog_/${id}`;
+  const requestUrl = `${apiUrl}/${id}`;
   return {
     type: ACTION_TYPES.FETCH_BLOG,
     payload: axios.get(requestUrl),

@@ -2,18 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button } from 'reactstrap';
-import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from '../index2';
 
-import { getAllBlogs,createEntity, getEntity, reset as resetSousRachOperation } from './blogs.reducer';
+import { getAllBlogs, createEntity, getEntity, reset as resetSousRachOperation } from './blogs.reducer';
 import { FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
 import { Controller, useForm } from 'react-hook-form';
 
 export interface IBlogUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> { }
 
 export const BlogUpdate = (props: IBlogUpdateProps) => {
-  const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
+  const [isNew, setIsNew] = useState(window.location.pathname.includes("new"));
   const { register, handleSubmit, control, reset } = useForm();
 
   const handleClose = () => {
@@ -23,9 +22,24 @@ export const BlogUpdate = (props: IBlogUpdateProps) => {
 
   useEffect(() => {
     if (!isNew) {
-      props.getEntity(props.match.params.id);
+      props.getEntity(props.location.pathname.split(/\//)[2]);
     }
   }, []);
+  useEffect(() => {
+    if (isNew) {
+      reset({});
+    } else {
+      console.log(props.blogEntity)
+      reset({
+        ...props.blogEntity,
+      });
+
+    }
+  }, [props.blogEntity]);
+
+
+
+
 
   useEffect(() => {
     if (props.updateSuccess) {
@@ -43,7 +57,7 @@ export const BlogUpdate = (props: IBlogUpdateProps) => {
     }
     else {
       values['id'] = props.match.params.id;
-   //   props.updateEntity(values);
+      //   props.updateEntity(values);
     }
   }
 
@@ -69,7 +83,7 @@ export const BlogUpdate = (props: IBlogUpdateProps) => {
               <Grid container item xs={11} justify="center"  >
                 <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
 
-                  <Grid container spacing={9}  xs={11} sm={12}>
+                  <Grid container spacing={9} xs={11} sm={12}>
 
 
 
@@ -82,7 +96,7 @@ export const BlogUpdate = (props: IBlogUpdateProps) => {
                         {...register('name')}
                       />
                     </Grid>
-                   
+
                     <Grid container justify="center" item xs={12} md={6} >
                       <TextField
                         style={{ width: '100%' }}
@@ -90,15 +104,16 @@ export const BlogUpdate = (props: IBlogUpdateProps) => {
                         label="Handle"
                         type="text"
                         {...register('handle')}
+                       
                       />
                     </Grid>
 
 
-                   
+
 
 
                   </Grid>
-                  <Grid item container style={{ marginTop: '6%' }}  xs={12} >
+                  <Grid item container style={{ marginTop: '6%' }} xs={12} >
                     <Button tag={Link} id="cancel-save" to="/admin/blog" replace color="info">
                       <FontAwesomeIcon icon="arrow-left" />
                       &nbsp;
@@ -110,7 +125,7 @@ export const BlogUpdate = (props: IBlogUpdateProps) => {
                     <Button color="primary" id="save-entity" type="submit" >
                       <FontAwesomeIcon icon="save" />
                       &nbsp;
-                     Save
+                      Save
                     </Button>
                   </Grid>
                 </form>
@@ -125,7 +140,7 @@ export const BlogUpdate = (props: IBlogUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
-  sousRachOperationEntity: storeState.blog.entity,
+  blogEntity: storeState.blog.entity,
   loading: storeState.blog.loading,
   fundList: storeState.blog.entities,
   updating: storeState.blog.updating,
@@ -135,7 +150,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 
 const mapDispatchToProps = {
   getEntity,
- // updateEntity,
+  // updateEntity,
   createEntity,
   getAllBlogs,
 };
